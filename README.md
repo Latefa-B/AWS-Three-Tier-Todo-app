@@ -160,10 +160,15 @@ Go to the S3 dashboard and create a new bucket.
 Configure bucket settings and permissions.
 Upload static file (header image of the todo-list web application).
 
+<img width="1109" height="518" alt="Screenshot 2024-09-17 at 12 47 45 PM" src="https://github.com/user-attachments/assets/199b5437-89b4-4a9e-82c6-81e1a5c22e18" />
 
+<img width="1128" height="528" alt="Screenshot 2024-09-17 at 12 47 56 PM" src="https://github.com/user-attachments/assets/b7191ed1-1698-4e00-9349-7dd9467d3fbe" />
  
 
+<img width="1108" height="530" alt="4" src="https://github.com/user-attachments/assets/32c2c6a8-ccb0-4958-b5e2-92366d52350b" />
 
+<img width="1083" height="657" alt="5" src="https://github.com/user-attachments/assets/66240221-97d0-4e6d-8fc8-905fa057ea09" />
+<img width="1401" height="650" alt="6" src="https://github.com/user-attachments/assets/6a9ef6cc-136a-4832-a84f-1f0040a2b832" />
 
 
 
@@ -178,7 +183,10 @@ Configure the instance settings: Choose an amazon machine image AMI, Select an i
 Attach the backend instance security group previously created to the instance 
 Attach the IAM role to the instance profile
 launch instance
+<img width="1231" height="681" alt="Screenshot 2024-09-17 at 1 49 33 PM" src="https://github.com/user-attachments/assets/2cd1c858-c392-4bd7-a46b-c2147f6efef5" />
 
+<img width="1173" height="677" alt="Screenshot 2024-09-17 at 1 49 51 PM" src="https://github.com/user-attachments/assets/295e75c3-16fa-4429-85cd-5dcd7699f856" />
+<img width="1145" height="272" alt="Screenshot 2024-09-17 at 1 50 08 PM" src="https://github.com/user-attachments/assets/84a5707d-f336-4772-9153-6b41bd0b4827" />
 
 
 
