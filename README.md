@@ -1,17 +1,14 @@
-# AWS-Three-Tier-Todo-app
-Deploying a To-Do List Web Application on AWS using the Three Tier-Architecture
+# Step by step Guide to Deploying a To-Do List Web Application on AWS using the Three Tier-Architecture
 
-Introduction
 The project is about deploying a To-Do List Web Application on AWS using the three tier Architecture. This Architecture consists of three layers : the Presentation layer (frontend), the Logic layer (backend) and the Data layer (database) for a highly available and fault-tolerant web application. 
 
-For this purpose, I will be presenting the steps to the process of deploying a web application on AWS using Amazon services : IAM, VPC, EC2, ELB & ASG, S3, EFS and RDS. Built using the three tier architecture for a fault tolerance and high available application. 
+For this purpose, I will be presenting the steps to the process of deploying a web application on AWS using services like : IAM, VPC, EC2, ELB & ASG, S3, EFS and RDS. Built using the three tier architecture for a fault tolerance and high available application. 
 
-Architecture of the Web Application : Three tier Application
+## Architecture of the Web Application : Three tier Application
 
+## Step-by-step instructions 
 
-Steps to the process of building and deploying the To-do-list Web Application using the three tier Architecture on AWS : 
-
-Step 1 : Set up the infrastructure
+### Step 1 : Set up the infrastructure
 The infrastructure set up for this project is a virtual private network over the Cloud for secure and isolated resources. The VPC and its components will be deployed in the North Virginia Region across two availability zones AZa and AZb. 
 
 
@@ -109,7 +106,7 @@ For the Database instance:
 
 
 
-Step 2 : Secure the Application
+### Step 2 : Secure the Application
 
 For this project I will configure five SG to control inbound and outbound traffic to instances and secure the application:
 The first security group of External ELB  to allow HTTP access from anywhere
@@ -148,7 +145,7 @@ create a security group, name it and add inbound rule to allow NFS traffic on Po
 
 
 
-Step 3 : Configure IAM roles and permissions
+### Step 3 : Configure IAM roles and permissions
 For this project, I will be creating a role, in order to allow EC2 instances to access other AWS resources securely. The role grants : S3ReadOnly, AmazonRDSFullAccess, and AmazonSSMManagedInstanceCore Permissions, in order to grant the instances permission to read the file in the S3 buckets related to the project, to have full access the RDS database and grant access to Session Manager  instead of using SSH.
 
 
@@ -161,7 +158,7 @@ Name the role and create it.
 
 
 
-Step 4 : Set up S3 Simple Storage 
+### Step 4 : Set up S3 Simple Storage 
 
 After setting up the project infrastructure and configuring the traffic security, I will be setting up the S3 simple storage to store static content.
 
@@ -179,7 +176,7 @@ Upload static file (header image of the todo-list web application).
 
 
 
-Step 5 : Set up the Backend Application
+### Step 5 : Set up the Backend Application
 
 Launch the  Backend EC2 instances
 Navigate to the EC2 dashboard
@@ -197,7 +194,7 @@ launch instance
 
 
 
-Step 6 : Build the Database Application
+### Step 6 : Build the Database Application
 Create a Subnet Group
 Create a subnet group for the RDS database in order to allow a higher availability and a better security.
 
@@ -239,7 +236,7 @@ Once inside mysql, configure the database ( create and add tasks) and exit it.
 
 
 
-Step 7 : Build the Backend Application 
+### Step 7 : Build the Backend Application 
 Launch and configure EC2 instances
 Backend EC2 instance was previously launched, it allowed us to connect to the RDS from it and build the project database. 
 
@@ -272,7 +269,7 @@ Create a virtual environment and configure Flask as a framework and Gunicorn as 
 
 
 
-Step 8 : Build the Frontend Application
+### Step 8 : Build the Frontend Application
 
 Launch and configure  the Frontend EC2 Instances
 Navigate to the EC2 dashboard
@@ -380,7 +377,7 @@ Deploy and test Todo-list Web application in the browser using the Public IP add
 
 
 
-Step 9 : Configure Load Balancing & Auto Scaling for high availability 
+### Step 9 : Configure Load Balancing & Auto Scaling for high availability 
 
 Create and configure ELB and ASG to distribute traffic and scale the application for fault tolerance and high availability.
 
@@ -430,7 +427,7 @@ Test the web application using the ELB
 
 
 
-Step 10 : Set up the EFS shared storage
+### Step 10 : Set up the EFS shared storage
 
 For this project, I will be setting up EFS for shared storage across the backend EC2 instances.
 
@@ -464,7 +461,7 @@ Mount the EFS file system to the directory created
 Verify the mount 
 
 
-Summary
+### Summary
 This breakdown provides a step-by-step guide for Deploying a web application using the three-tier architecture on AWS. In summary, I have: 
 Set up the infrastructure over the cloud (VPC) in order to isolate the resources for a secure deployment
 Configure the security groups for the application in order to control inbound and outbound traffic
