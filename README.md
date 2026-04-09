@@ -5,106 +5,91 @@ The project is about deploying a To-Do List Web Application on AWS using the thr
 For this purpose, I will be presenting the steps to the process of deploying a web application on AWS using services like : IAM, VPC, EC2, ELB & ASG, S3, EFS and RDS. Built using the three tier architecture for a fault tolerance and high available application. 
 
 ## Architecture of the Web Application : Three tier Application
+<img width="779" height="492" alt="Screenshot 2024-09-15 at 2 43 54 AM" src="https://github.com/user-attachments/assets/6b04a8c9-ca3e-4aa7-b9a3-805e4da825d8" />
 
 ## Step-by-step instructions 
 
 ### Step 1 : Set up the infrastructure
 The infrastructure set up for this project is a virtual private network over the Cloud for secure and isolated resources. The VPC and its components will be deployed in the North Virginia Region across two availability zones AZa and AZb. 
+- Create a Virtual Private Cloud (VPC)
+- Navigate to the VPC dashboard in the AWS Management Console\
+- Click on “Create VPC”
+- Configure the VPC settings (CIDR block, name…) and leave other settings as default.
+- Click “Create VPC”
+- specify the region 
+<img width="1187" height="614" alt="1" src="https://github.com/user-attachments/assets/f48676b4-8ff3-4b0f-ac47-a946159707a1" />
 
-
-Create a Virtual Private Cloud (VPC)
-Navigate to the VPC dashboard in the AWS Management Console
-Click on “Create VPC”
-Configure the VPC settings (CIDR block, name…) and leave other settings as default. 
-Click “Create VPC”
-specify the region 
-
-
-
-Create and Configure Subnets
-Create two Public subnets that will host the frontend app, located in two different AZs. These subnets allow resources within them to have direct internet access.
-go to the subnets section in the VPC dashboard 
-click on “create subnet”
-select your vpc
-create two subnets one in each AZ (AZa and AZb), name it, specify  a CIDR block.
-
-
-
-
-
+- Create and Configure Subnets
+- Create two Public subnets that will host the frontend app, located in two different AZs. These subnets allow resources within them to have direct internet access.
+- go to the subnets section in the VPC dashboard 
+- click on “create subnet”
+- select your vpc
+- create two subnets one in each AZ (AZa and AZb), name it, specify  a CIDR block.
+<img width="1180" height="629" alt="2" src="https://github.com/user-attachments/assets/231e4156-9387-44e1-aa0b-178aba5dcfae" />
+<img width="1191" height="610" alt="3" src="https://github.com/user-attachments/assets/456d0e2a-bebc-40a4-abd5-821674cdd787" />
 
 Create two Private subnets to host the backend app, located in two different AZs:
-go to the subnets section in the VPC dashboard 
-click on “create subnet”
-select your vpc
-create two subnets one in each AZ (AZa and AZb), name it, specify  a CIDR block.
+- go to the subnets section in the VPC dashboard 
+- click on “create subnet”
+- select your vpc
+- create two subnets one in each AZ (AZa and AZb), name it, specify  a CIDR block.
+<img width="1187" height="634" alt="4" src="https://github.com/user-attachments/assets/07854124-90b0-4d35-b4e4-a29cb9602569" />
+<img width="1171" height="638" alt="5" src="https://github.com/user-attachments/assets/920a324e-aaa9-4d0c-ad79-5c759b9af3a1" />
 
+- Create one Private subnet to host the database app, located in AZa:
+- go to the subnets section in the VPC dashboard 
+- click on “create subnet”
+- select your vpc
+- create two subnets one in each AZ (AZa and AZb), name it, specify  a CIDR block.
+<img width="1225" height="621" alt="6" src="https://github.com/user-attachments/assets/dfa555fc-8b3b-49df-b1ca-d34f4e35b652" />
+<img width="1187" height="643" alt="7" src="https://github.com/user-attachments/assets/32419b00-0c61-4f38-86ec-deb0b25b875d" />
 
+- Set up the Internet Gateway 
+- Set up an internet gateway and attach it to your VPC, to allow communication over the internet between the resources.
+<img width="1186" height="411" alt="8" src="https://github.com/user-attachments/assets/e2b76b8a-ab7f-4ab4-b61b-3d1c504f07d4" />
 
-
-
-
-
-
-
-
-Create one Private subnet to host the database app, located in AZa:
-go to the subnets section in the VPC dashboard 
-click on “create subnet”
-select your vpc
-create two subnets one in each AZ (AZa and AZb), name it, specify  a CIDR block.
-
-
-
-Set up the Internet Gateway 
-Set up an internet gateway and attach it to your VPC, to allow communication over the internet between the resources.
-
-Go to the internet gateways section
-click on “create internet gateway”
-name it and click “Create”.
-Attach the internet gateway to your vpc
-
-   
-
+- Go to the internet gateways section
+- click on “create internet gateway”
+- name it and click “Create”.
+- Attach the internet gateway to your vpc
+<img width="1171" height="562" alt="9" src="https://github.com/user-attachments/assets/5fdfe6d3-4b6f-4f26-a5a5-f1cf0ad06308" />
 
 Configure Route Tables 
 Create route tables for the public and private subnets. Then associate the public subnets with a route table that has a route to the internet via an Internet Gateway (IGW). And associate the private subnets with a route table that routes traffic through a Network Address Translation (NAT) Gateway or NAT instance in the public subnets.
 
-Go to the route tables section
-click on “create route table”
-name it and associate it with the project VPC
-Add a route to the Public-Route-Table : destination: 0.0.0.0/0 . target: name of the internet gateway
-associate the Public-Route-table with the public-subnet
+- Go to the route tables section
+- click on “create route table”
+- name it and associate it with the project VPC
+- Add a route to the Public-Route-Table : destination: 0.0.0.0/0 . target: name of the internet gateway
+- associate the Public-Route-table with the public-subnet
+<img width="1195" height="536" alt="10" src="https://github.com/user-attachments/assets/0347adf2-df62-439a-991d-09c84af43614" />
 
+- Create NAT Gateways for Private Subnets
+- Create two NAT Gateways one for the backend layer and the database layer :
+- go to the NAT gateways section
+- click on “create NAT Gateway”
+- select the public-subnet and allocate an elastic IP address
+- click create Nat gateway 
+<img width="1161" height="592" alt="11" src="https://github.com/user-attachments/assets/9e696bf8-f064-40d0-a6a9-2a5c601b8d10" />
 
-
-
-Create NAT Gateways for Private Subnets
-Create two NAT Gateways one for the backend layer and the database layer :
-go to the NAT gateways section
-click on “create NAT Gateway”
-select the public-subnet and allocate an elastic IP address
-click create Nat gateway 
-
-
-
-
-Update Route Tables for private subnets:
-Update route tables for both private subnets (backend and database layers): 
-go to the route tables section 
-click on create route table
-name it  and associate it with the project vpc
-add a route to the private-route-table, destination 0.0.0.0/0 and target: todo-app Nat gateway 
-associate the private-route-table with the private-subnet
+- Update Route Tables for private subnets:
+- Update route tables for both private subnets (backend and database layers): 
+- go to the route tables section 
+- click on create route table
+- name it  and associate it with the project vpc
+- add a route to the private-route-table, destination 0.0.0.0/0 and target: todo-app Nat gateway 
+- associate the private-route-table with the private-subnet
 
 For the Backend instance: 
-
+<img width="1169" height="554" alt="12" src="https://github.com/user-attachments/assets/1b0df447-012a-4d93-9e35-1b66ffdaeb58" />
+<img width="1232" height="452" alt="13" src="https://github.com/user-attachments/assets/63dad603-54df-4585-bc79-071c8f3d8c78" />
 
 
 For the Database instance: 
-
-
-
+<img width="1179" height="651" alt="14" src="https://github.com/user-attachments/assets/6e8e2fc2-fc71-4ef9-ab94-ff9bb35079c9" />
+<img width="1165" height="537" alt="15" src="https://github.com/user-attachments/assets/f8fba04d-4327-43a1-aecb-3e6971da01f6" />
+<img width="1168" height="533" alt="16" src="https://github.com/user-attachments/assets/cfddd637-df2d-4675-85e2-aacc05773f65" />
+<img width="1103" height="640" alt="17" src="https://github.com/user-attachments/assets/8cca2370-1ded-48c5-aa00-a71954dc9044" />
 
 ### Step 2 : Secure the Application
 
@@ -116,6 +101,8 @@ The fourth security group of database instance: to allow Mysql/Aurora access fro
 The fifth security group of EFS Elastic file shared system to allow NFS traffic on Port 2049 from the backend instance security group
 
 External ELB  security group to allow HTTP access from anywhere
+<img width="1149" height="643" alt="1" src="https://github.com/user-attachments/assets/53ab5af6-421f-4cfe-ad90-7ef0a33c0adc" />
+
 Go to the security groups section in the vpc dashboard
 create a security group, name it and add inbound rules to allow HTTP traffic on port 80 from anywhere
 
@@ -124,6 +111,7 @@ create a security group, name it and add inbound rules to allow HTTP traffic on 
 The Frontend instance security group to allow SSH access on Port 22 from my IP, HTTP access on Port 80 from anywhere and HTTP access from the security group of the external ELB.
 Go to the security groups section in the vpc dashboard
 create a security group, name it and add three inbound rules to allow SSH access on Port 22 from my IP, HTTP access on Port 80 from anywhere and HTTP access from the security group of the external ELB.
+<img width="1175" height="670" alt="2" src="https://github.com/user-attachments/assets/64f7f408-9b26-4240-8f45-8cb04b09904a" />
 
 
 
@@ -137,11 +125,13 @@ create a security group, name it and add two inbound rules to allow SSH access o
 Go to the security groups section in the vpc dashboard
 create a security group, name it and add three inbound rules to allow SSH access on Port 22 from the frontend instance security group, allow Mysql/Aurora access from the backend security group and allow all traffic access.
 
+<img width="1150" height="695" alt="Screenshot 2024-09-17 at 12 09 48 PM" src="https://github.com/user-attachments/assets/2d3b81e4-1763-4b6e-a2ca-913739e41bd2" />
 
 
 5. EFS security group to allow NFS traffic on Port 2049 from the backend instance security group
 Go to the security groups section in the vpc dashboard
 create a security group, name it and add inbound rule to allow NFS traffic on Port 2049 from the backend instance security group
+<img width="1146" height="663" alt="Screenshot 2024-09-17 at 12 12 20 PM" src="https://github.com/user-attachments/assets/d1b892b3-5e52-42e9-a908-645b2db1a56c" />
 
 
 
@@ -168,7 +158,7 @@ Configure bucket settings and permissions.
 Upload static file (header image of the todo-list web application).
 
 
-
+ 
 
 
 
