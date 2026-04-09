@@ -143,6 +143,9 @@ Go to the IAM dashboard.
 Create roles under access management.  
 Specify the type of entity : AWS service, mention a service or use case, and add three permissions : S3ReadOnly permission, AmazonRDSFullAccess permission, and AmazonSSMManagedInstanceCore Permission. 
 Name the role and create it.
+<img width="1126" height="385" alt="Screenshot 2024-09-17 at 12 20 19 PM" src="https://github.com/user-attachments/assets/54136bc1-201b-4590-a503-114d053a21e5" />
+
+<img width="1113" height="410" alt="Screenshot 2024-09-17 at 12 20 28 PM" src="https://github.com/user-attachments/assets/56466849-62e6-4e66-92bf-1808454a1521" />
 
 
 
