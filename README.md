@@ -166,39 +166,39 @@ After setting up the project infrastructure and configuring the traffic security
 <img width="1145" height="272" alt="Screenshot 2024-09-17 at 1 50 08 PM" src="https://github.com/user-attachments/assets/84a5707d-f336-4772-9153-6b41bd0b4827" />
 
 ### Step 6 : Build the Database Application
-- Create a Subnet Group
+- **Create a Subnet Group:**
 - Create a subnet group for the RDS database in order to allow a higher availability and a better security.
 - Go on Amazon RDS Dashboard : under Subnet Groups, click on create DB subnet group
-Name the subnet group, specify the VPC and Subnets of the project
-click on Create
+- Name the subnet group, specify the VPC and Subnets of the project
+- click on Create
 
 
-Design an RDS Database 
-Go to the “RDS” dashboard and click “Create database”.
-Choose the database engine (MySQL).
-Configure database settings (instance class, storage).
-Configure the RDS instance in a private subnet for security.
-
-
-
-
-
-
-Configure the RDS Security Group
-Configure the RDS security group created earlier to allow inbound traffic from the backend EC2 instances.
+- **Design an RDS Database** 
+- Go to the “RDS” dashboard and click “Create database”.
+- Choose the database engine (MySQL).
+- Configure database settings (instance class, storage).
+- Configure the RDS instance in a private subnet for security.
 
 
 
 
 
 
-Build The Database Application 
+- **Configure the RDS Security Group**
+- Configure the RDS security group created earlier to allow inbound traffic from the backend EC2 instances.
+
+
+
+
+
+
+- **Build The Database Application**
 After setting up the backend instance and creating the RDS database instance, I will build the database application.
 
-Connect to the instance using Session Manager
-On the backend instance terminal, host mysql
-Connect to the database from the backend instance using its endpoint and credentials
-Once inside mysql, configure the database ( create and add tasks) and exit it.
+- **Connect to the instance using Session Manager**
+- On the backend instance terminal, host mysql
+- Connect to the database from the backend instance using its endpoint and credentials
+- Once inside mysql, configure the database ( create and add tasks) and exit it.
 
 
 
