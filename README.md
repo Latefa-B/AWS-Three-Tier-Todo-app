@@ -46,15 +46,15 @@ Create two Private subnets to host the backend app, located in two different AZs
 
 - Set up the Internet Gateway 
 - Set up an internet gateway and attach it to your VPC, to allow communication over the internet between the resources.
-<img width="1186" height="411" alt="8" src="https://github.com/user-attachments/assets/e2b76b8a-ab7f-4ab4-b61b-3d1c504f07d4" />
-
 - Go to the internet gateways section
 - click on “create internet gateway”
 - name it and click “Create”.
+<img width="1186" height="411" alt="8" src="https://github.com/user-attachments/assets/e2b76b8a-ab7f-4ab4-b61b-3d1c504f07d4" />
+
 - Attach the internet gateway to your vpc
 <img width="1171" height="562" alt="9" src="https://github.com/user-attachments/assets/5fdfe6d3-4b6f-4f26-a5a5-f1cf0ad06308" />
 
-Configure Route Tables 
+- Configure Route Tables : 
 Create route tables for the public and private subnets. Then associate the public subnets with a route table that has a route to the internet via an Internet Gateway (IGW). And associate the private subnets with a route table that routes traffic through a Network Address Translation (NAT) Gateway or NAT instance in the public subnets.
 
 - Go to the route tables section
@@ -94,113 +94,81 @@ For the Database instance:
 ### Step 2 : Secure the Application
 
 For this project I will configure five SG to control inbound and outbound traffic to instances and secure the application:
-The first security group of External ELB  to allow HTTP access from anywhere
-The second security group of frontend instance : to allow HTTP access from anywhere and from the security group of the ELB, as well as SSH access from my IP.
-The third security group of backend instances: to allow traffic on TCP protocol with flask framework and SSH access from the frontend instance security group.
-The fourth security group of database instance: to allow Mysql/Aurora access from the backend security group and SSH traffic from the frontend security group as well as all traffic access. 
-The fifth security group of EFS Elastic file shared system to allow NFS traffic on Port 2049 from the backend instance security group
+- **External ELB security group**: to allow HTTP access from anywhere.
+- **Frontend instance security group**: to allow HTTP access from anywhere and from the security group of the ELB, as well as SSH access from my IP.
+- **Backend instances security group**: to allow traffic on TCP protocol with flask framework and SSH access from the frontend instance security group.
+- **Database instance security group**: to allow Mysql/Aurora access from the backend security group and SSH traffic from the frontend security group as well as all traffic access. 
+- **EFS Elastic file shared system security group**: to allow NFS traffic on Port 2049 from the backend instance security group.
 
-External ELB  security group to allow HTTP access from anywhere
+- **External ELB security group to allow HTTP access from anywhere**
+- Go to the security groups section in the vpc dashboard
+- create a security group, name it and add inbound rules to allow HTTP traffic on port 80 from anywhere
 <img width="1149" height="643" alt="1" src="https://github.com/user-attachments/assets/53ab5af6-421f-4cfe-ad90-7ef0a33c0adc" />
 
-Go to the security groups section in the vpc dashboard
-create a security group, name it and add inbound rules to allow HTTP traffic on port 80 from anywhere
-
-
-
-The Frontend instance security group to allow SSH access on Port 22 from my IP, HTTP access on Port 80 from anywhere and HTTP access from the security group of the external ELB.
-Go to the security groups section in the vpc dashboard
-create a security group, name it and add three inbound rules to allow SSH access on Port 22 from my IP, HTTP access on Port 80 from anywhere and HTTP access from the security group of the external ELB.
+- **Frontend instance security group to allow SSH access on Port 22 from my IP, HTTP access on Port 80 from anywhere and HTTP access from the security group of the external ELB**
+- Go to the security groups section in the vpc dashboard
+- create a security group, name it and add three inbound rules to allow SSH access on Port 22 from my IP, HTTP access on Port 80 from anywhere and HTTP access from the security group of the external ELB.
 <img width="1175" height="670" alt="2" src="https://github.com/user-attachments/assets/64f7f408-9b26-4240-8f45-8cb04b09904a" />
 
+- **Backend instances security group to allow traffic on TCP protocol with flask framework on Port 5000 and allow SSH access from the frontend instance security group**
+- Go to the security groups section in the vpc dashboard
+- create a security group, name it and add two inbound rules to allow SSH access on Port 22 from the frontend instance security group and TCP access with flask framework on Port 5000 for webserving purposes. 
 
-
-3. The Backend instance security group to allow traffic on TCP protocol with flask framework on Port 5000 and allow SSH access from the frontend instance security group.
-Go to the security groups section in the vpc dashboard
-create a security group, name it and add two inbound rules to allow SSH access on Port 22 from the frontend instance security group and TCP access with flask framework on Port 5000 for webserving purposes. 
-
-
-
-4. The database security group to allow Mysql/Aurora access from the backend security group and SSH traffic from the frontend security group as well as all traffic access.
-Go to the security groups section in the vpc dashboard
-create a security group, name it and add three inbound rules to allow SSH access on Port 22 from the frontend instance security group, allow Mysql/Aurora access from the backend security group and allow all traffic access.
-
+- **Database instance security group to allow Mysql/Aurora access from the backend security group and SSH traffic from the frontend security group as well as all traffic access**
+- Go to the security groups section in the vpc dashboard
+- create a security group, name it and add three inbound rules to allow SSH access on Port 22 from the frontend instance security group, allow Mysql/Aurora access from the backend security group and allow all traffic access.
 <img width="1150" height="695" alt="Screenshot 2024-09-17 at 12 09 48 PM" src="https://github.com/user-attachments/assets/2d3b81e4-1763-4b6e-a2ca-913739e41bd2" />
 
-
-5. EFS security group to allow NFS traffic on Port 2049 from the backend instance security group
-Go to the security groups section in the vpc dashboard
-create a security group, name it and add inbound rule to allow NFS traffic on Port 2049 from the backend instance security group
+- **EFS security group to allow NFS traffic on Port 2049 from the backend instance security group**
+- Go to the security groups section in the vpc dashboard
+- create a security group, name it and add inbound rule to allow NFS traffic on Port 2049 from the backend instance security group
 <img width="1146" height="663" alt="Screenshot 2024-09-17 at 12 12 20 PM" src="https://github.com/user-attachments/assets/d1b892b3-5e52-42e9-a908-645b2db1a56c" />
 
-
-
 ### Step 3 : Configure IAM roles and permissions
-For this project, I will be creating a role, in order to allow EC2 instances to access other AWS resources securely. The role grants : S3ReadOnly, AmazonRDSFullAccess, and AmazonSSMManagedInstanceCore Permissions, in order to grant the instances permission to read the file in the S3 buckets related to the project, to have full access the RDS database and grant access to Session Manager  instead of using SSH.
+For this project, I will be creating a role, in order to allow EC2 instances to access other AWS resources securely. The role grants : **S3ReadOnly, AmazonRDSFullAccess,** and **AmazonSSMManagedInstanceCore Permissions**, in order to grant the instances permission to read the file in the S3 buckets related to the project, to have full access the RDS database and grant access to Session Manager  instead of using SSH.
 
-
-Go to the IAM dashboard.
-Create roles under access management.  
-Specify the type of entity : AWS service, mention a service or use case, and add three permissions : S3ReadOnly permission, AmazonRDSFullAccess permission, and AmazonSSMManagedInstanceCore Permission. 
-Name the role and create it.
+- Go to the IAM dashboard.
+- Create roles under access management.  
+- Specify the type of entity : AWS service, mention a service or use case, and add three permissions : S3ReadOnly permission, AmazonRDSFullAccess permission, and AmazonSSMManagedInstanceCore Permission. 
+- Name the role and create it.
 <img width="1126" height="385" alt="Screenshot 2024-09-17 at 12 20 19 PM" src="https://github.com/user-attachments/assets/54136bc1-201b-4590-a503-114d053a21e5" />
 
 <img width="1113" height="410" alt="Screenshot 2024-09-17 at 12 20 28 PM" src="https://github.com/user-attachments/assets/56466849-62e6-4e66-92bf-1808454a1521" />
 
-
-
-
-
 ### Step 4 : Set up S3 Simple Storage 
-
 After setting up the project infrastructure and configuring the traffic security, I will be setting up the S3 simple storage to store static content.
 
-Create and configure an S3 bucket
-Go to the S3 dashboard and create a new bucket.
-Configure bucket settings and permissions.
-Upload static file (header image of the todo-list web application).
+- Create and configure an S3 bucket
+- Go to the S3 dashboard and create a new bucket.
+- Configure bucket settings and permissions.
+- Upload static file (header image of the todo-list web application).
 
 <img width="1109" height="518" alt="Screenshot 2024-09-17 at 12 47 45 PM" src="https://github.com/user-attachments/assets/199b5437-89b4-4a9e-82c6-81e1a5c22e18" />
 
-<img width="1128" height="528" alt="Screenshot 2024-09-17 at 12 47 56 PM" src="https://github.com/user-attachments/assets/b7191ed1-1698-4e00-9349-7dd9467d3fbe" />
- 
+<img width="1128" height="528" alt="Screenshot 2024-09-17 at 12 47 56 PM" src="https://github.com/user-attachments/assets/b7191ed1-1698-4e00-9349-7dd9467d3fbe" /> 
 
 <img width="1108" height="530" alt="4" src="https://github.com/user-attachments/assets/32c2c6a8-ccb0-4958-b5e2-92366d52350b" />
 
 <img width="1083" height="657" alt="5" src="https://github.com/user-attachments/assets/66240221-97d0-4e6d-8fc8-905fa057ea09" />
 <img width="1401" height="650" alt="6" src="https://github.com/user-attachments/assets/6a9ef6cc-136a-4832-a84f-1f0040a2b832" />
 
-
-
-
-
 ### Step 5 : Set up the Backend Application
-
-Launch the  Backend EC2 instances
-Navigate to the EC2 dashboard
-click on “launch instance”
-Configure the instance settings: Choose an amazon machine image AMI, Select an instance type t2.micro, in network  select the project vpc, select the private subnet
-Attach the backend instance security group previously created to the instance 
-Attach the IAM role to the instance profile
-launch instance
+- Launch the  Backend EC2 instances
+- Navigate to the EC2 dashboard
+- click on “launch instance”
+- Configure the instance settings: Choose an amazon machine image AMI, Select an instance type t2.micro, in network  select the project vpc, select the private subnet
+- Attach the backend instance security group previously created to the instance 
+- Attach the IAM role to the instance profile
+- launch instance
 <img width="1231" height="681" alt="Screenshot 2024-09-17 at 1 49 33 PM" src="https://github.com/user-attachments/assets/2cd1c858-c392-4bd7-a46b-c2147f6efef5" />
 
 <img width="1173" height="677" alt="Screenshot 2024-09-17 at 1 49 51 PM" src="https://github.com/user-attachments/assets/295e75c3-16fa-4429-85cd-5dcd7699f856" />
 <img width="1145" height="272" alt="Screenshot 2024-09-17 at 1 50 08 PM" src="https://github.com/user-attachments/assets/84a5707d-f336-4772-9153-6b41bd0b4827" />
 
-
-
-
-
-
-
-
 ### Step 6 : Build the Database Application
-Create a Subnet Group
-Create a subnet group for the RDS database in order to allow a higher availability and a better security.
-
-Go on Amazon RDS Dashboard
-under Subnet Groups, click on create DB subnet group
+- Create a Subnet Group
+- Create a subnet group for the RDS database in order to allow a higher availability and a better security.
+- Go on Amazon RDS Dashboard : under Subnet Groups, click on create DB subnet group
 Name the subnet group, specify the VPC and Subnets of the project
 click on Create
 
