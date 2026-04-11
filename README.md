@@ -178,22 +178,16 @@ After setting up the project infrastructure and configuring the traffic security
 - Choose the database engine (MySQL).
 - Configure database settings (instance class, storage).
 - Configure the RDS instance in a private subnet for security.
-
-
-
-
-
+<img width="1110" height="437" alt="Screenshot 2024-09-17 at 1 09 21 PM" src="https://github.com/user-attachments/assets/7becae8b-f44d-4514-a977-bb40350bd849" />
 
 - **Configure the RDS Security Group**
 - Configure the RDS security group created earlier to allow inbound traffic from the backend EC2 instances.
-
-
-
-
+<img width="1104" height="680" alt="Screenshot 2024-09-17 at 1 10 12 PM" src="https://github.com/user-attachments/assets/b8b1864b-5881-4c04-a173-f27d636945f3" />
 
 
 - **Build The Database Application**
 After setting up the backend instance and creating the RDS database instance, I will build the database application.
+
 
 - **Connect to the instance using Session Manager**
 - On the backend instance terminal, host mysql
