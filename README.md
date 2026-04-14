@@ -299,100 +299,78 @@ Backend EC2 instance was previously launched, it allowed us to connect to the RD
 <img width="958" height="827" alt="Screenshot 2024-09-11 at 3 41 23 PM" src="https://github.com/user-attachments/assets/aa78f29f-e70c-45f9-a7ba-7eeee4f6690e" />
 
 ### Step 9 : Configure Load Balancing & Auto Scaling for high availability 
-
 Create and configure ELB and ASG to distribute traffic and scale the application for fault tolerance and high availability.
+- **Set Up ELB (Elastic Load Balancer)**
+- Create Target group
+<img width="1197" height="630" alt="Screenshot 2024-09-11 at 3 43 27 PM" src="https://github.com/user-attachments/assets/ccd7f72a-df8b-472c-87dd-7d8d462c6997" />
+<img width="1174" height="637" alt="Screenshot 2024-09-11 at 3 43 42 PM" src="https://github.com/user-attachments/assets/40b5b3d6-a20a-4caf-aef8-32b642102f28" />
 
-Set Up ELB (Elastic Load Balancer)
-Create Target group
-
-
-
-
-
-Create an ELB:
+- Create an ELB:
    - Go to the EC2 dashboard and select ‘Load Balancers’.
    - Click ‘Create Load Balancer’ and choose Application Load Balancer
-  - Configure the ELB to be placed in public subnets and to route traffic to the frontend EC2 instances.
+   - Configure the ELB to be placed in public subnets and to route traffic to the frontend EC2 instances.
    - Set up listeners (HTTP on port 80).
    - Configure health checks to monitor the health of the frontend instances.
+<img width="1173" height="528" alt="Screenshot 2024-09-11 at 3 45 38 PM" src="https://github.com/user-attachments/assets/c6c6f520-92f3-47b9-a9f6-9313072aed87" />
 
+- **Set Up Auto Scaling Group (ASG)**
+- Create a Launch Configuration:
+- Go to the EC2 dashboard and select ‘Launch Configurations’.
+- Create a new launch configuration for the frontend EC2 instances.
+- Specify the AMI, instance type, and security groups.
+<img width="1174" height="460" alt="Screenshot 2024-09-11 at 3 45 49 PM" src="https://github.com/user-attachments/assets/2edd2615-203b-4be8-8868-6b45d603da3d" />
+<img width="1145" height="641" alt="Screenshot 2024-09-11 at 3 50 02 PM" src="https://github.com/user-attachments/assets/b6f50321-0ff0-4d2e-9614-2942a13b9f8d" />
 
+- Go to the EC2 dashboard and select ‘Auto Scaling Groups’.
+- Create an Auto Scaling Group and associate it with the launch configuration.
+- Set the desired number of instances, minimum and maximum size, and scaling policies.
+- Configure the ASG to be placed in the public subnet and to use the ELB.
+<img width="1180" height="650" alt="Screenshot 2024-09-11 at 3 53 11 PM" src="https://github.com/user-attachments/assets/8ed4e1e6-5e2e-45b8-9947-1d911e966036" />
 
-Set Up Auto Scaling Group (ASG)
-Create a Launch Configuration:
-Go to the EC2 dashboard and select ‘Launch Configurations’. 
-Create a new launch configuration for the frontend EC2 instances. 
-Specify the AMI, instance type, and security groups.
-
-
-
-
-
-
-
-Go to the EC2 dashboard and select ‘Auto Scaling Groups’.
-Create an Auto Scaling Group and associate it with the launch configuration.
-Set the desired number of instances, minimum and maximum size, and scaling policies.
-Configure the ASG to be placed in the public subnet and to use the ELB.
-
-
-
-
-
-
-
-
-
-
-Test the web application using the ELB
-
+- Test the web application using the ELB
+<img width="951" height="839" alt="Screenshot 2024-09-11 at 3 52 35 PM" src="https://github.com/user-attachments/assets/ea4267ed-682f-49e8-8fb5-169b7ab9ff52" />
 
 
 ### Step 10 : Set up the EFS shared storage
-
 For this project, I will be setting up EFS for shared storage across the backend EC2 instances.
+- **Create an EFS File System**
+- Go to the EFS dashboard and create a new file system.
+- Configure the EFS settings, including the project VPC and mount targets in the subnets.
+<img width="1129" height="685" alt="Screenshot 2024-09-12 at 2 23 54 PM" src="https://github.com/user-attachments/assets/2d5580d3-2903-4d5c-9a60-b8c33ee3460d" />
 
-Create an EFS File System
-Go to the EFS dashboard and create a new file system.
-Configure the EFS settings, including the project VPC and mount targets in the subnets.
+- Update EFS file system network configuration
+<img width="1113" height="427" alt="Screenshot 2024-09-16 at 11 09 15 AM" src="https://github.com/user-attachments/assets/c44f2b29-3a74-4d9e-8c3a-c35c347c3dc3" />
 
-
-
-
-
-
-
-Update EFS file system network configuration
+- Attach the security group created previously for EFS to the EC2 instances to allow NFS traffic on port 2049. Update the backend EC2 security groups
+<img width="869" height="685" alt="Screenshot 2024-09-16 at 11 28 46 AM" src="https://github.com/user-attachments/assets/a9730457-075e-45e5-996d-2f473833830c" />
 
 
-Attach the security group created previously for EFS to the EC2 instances to allow NFS traffic on port 2049. Update the backend EC2 security groups
+- **Mount EFS on EC2 Instances**
+- Install the NFS client on the EC2 instances
+<img width="1121" height="460" alt="Screenshot 2024-09-13 at 12 03 51 AM" src="https://github.com/user-attachments/assets/7978a109-7bd2-4ecd-81ea-10fd5608de9d" />
 
+- Update the apt-get package manager
+<img width="1015" height="425" alt="Screenshot 2024-09-16 at 11 18 04 AM" src="https://github.com/user-attachments/assets/dbacb67d-5cfe-45e1-889e-04185821ba7f" />
 
+- Create a mount point
+<img width="1050" height="237" alt="Screenshot 2024-09-13 at 12 08 36 AM" src="https://github.com/user-attachments/assets/6f885b74-9391-4c33-a9b0-71bcc9daa2ef" />
 
-Mount EFS on EC2 Instances
-Install the NFS client on the EC2 instances
-Update the apt-get package manager
-
-
-
-Create a mount point 
-
-
-Mount the EFS file system to the directory created
-Verify the mount 
+- Mount the EFS file system to the directory created
+- Verify the mount 
+<img width="1102" height="167" alt="Screenshot 2024-09-16 at 11 33 26 AM" src="https://github.com/user-attachments/assets/14516da7-5a3e-450b-8315-7c64794d8be1" />
 
 
 ### Summary
 This breakdown provides a step-by-step guide for Deploying a web application using the three-tier architecture on AWS. In summary, I have: 
-Set up the infrastructure over the cloud (VPC) in order to isolate the resources for a secure deployment
-Configure the security groups for the application in order to control inbound and outbound traffic
-Configure IAM role and Permissions to secure access to the AWS resources
-Set up S3 simple storage for the frontend layer
-Build the database layer
-Build the backend layer hosted in the private subnets that contains the application code and sensitive data.
-Build the frontend layer hosted in the public subnets that contains static files
-Deploying and testing the todo-list web application using the frontend Public IP address
-Configure ELB and ASG for fault tolerance and high availability
-Deploying and testing the todo-list web application using the ELB
-Set up the EFS shared storage for the backend layer in order to store the application code.
+- Set up the infrastructure over the cloud (VPC) in order to isolate the resources for a secure deployment
+- Configured the security groups for the application in order to control inbound and outbound traffic
+- Configured IAM role and Permissions to secure access to the AWS resources
+- Set up S3 simple storage for the frontend layer
+- Built the database layer
+- Built the backend layer hosted in the private subnets that contains the application code and sensitive data.
+- Built the frontend layer hosted in the public subnets that contains static files
+- Deployed and testing the todo-list web application using the frontend Public IP address
+- Configured ELB and ASG for fault tolerance and high availability
+- Deployed and tested the todo-list web application using the ELB
+- Set up the EFS shared storage for the backend layer in order to store the application code.
 
