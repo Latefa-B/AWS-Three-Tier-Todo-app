@@ -188,52 +188,55 @@ After setting up the project infrastructure and configuring the traffic security
 - **Build The Database Application**
 After setting up the backend instance and creating the RDS database instance, I will build the database application.
 
-
 - **Connect to the instance using Session Manager**
 - On the backend instance terminal, host mysql
 - Connect to the database from the backend instance using its endpoint and credentials
 - Once inside mysql, configure the database ( create and add tasks) and exit it.
 
+<img width="1031" height="713" alt="1" src="https://github.com/user-attachments/assets/b3099dca-5094-4687-a4f5-2b9bda7cfec7" />
 
+<img width="1153" height="518" alt="2" src="https://github.com/user-attachments/assets/f20bc942-3ce4-42c2-9ecf-cd319bf8cf1e" />
 
+<img width="749" height="360" alt="Screenshot 2024-09-09 at 1 37 55 PM" src="https://github.com/user-attachments/assets/2d4e74be-76b7-4c42-9be0-f1b416023637" />
 
+<img width="631" height="515" alt="Screenshot 2024-09-09 at 1 41 20 PM" src="https://github.com/user-attachments/assets/964404f1-3ad7-4738-9595-3438198d5af7" />
+
+<img width="622" height="514" alt="Screenshot 2024-09-09 at 1 43 41 PM" src="https://github.com/user-attachments/assets/fe830b96-4782-415b-9afc-9d7fcea3ea76" />
 
 
 ### Step 7 : Build the Backend Application 
-Launch and configure EC2 instances
+- **Launch and configure EC2 instances**
 Backend EC2 instance was previously launched, it allowed us to connect to the RDS from it and build the project database. 
+- Deploy the Backend application
+- Install Python dependencies : python3, python3-pip, python3-venv for the virtual environment.
+- Transfer the application code to the backend EC2 instance.
+- Create a virtual environment and configure Flask as a framework and Gunicorn as a Python Web Server Gateway Interface HTTP server. 
+<img width="934" height="639" alt="Screenshot 2024-09-09 at 1 51 29 PM" src="https://github.com/user-attachments/assets/9a914aa0-0939-4a69-b893-af9e5eb2b2f0" />
 
-Deploy the Backend application
-Install Python dependencies : python3, python3-pip, python3-venv for the virtual environment.
-Transfer the application code to the backend EC2 instance.
-Create a virtual environment and configure Flask as a framework and Gunicorn as a Python Web Server Gateway Interface HTTP server. 
+<img width="627" height="105" alt="Screenshot 2024-09-09 at 2 09 56 PM" src="https://github.com/user-attachments/assets/6b7fb389-df96-431a-86a5-d6b081e8c0be" />
 
+<img width="603" height="94" alt="Screenshot 2024-09-09 at 2 15 27 PM" src="https://github.com/user-attachments/assets/f9921b5d-9941-44f8-a282-06baefd545ed" />
 
+<img width="652" height="105" alt="Screenshot 2024-09-09 at 2 29 13 PM" src="https://github.com/user-attachments/assets/c8c88499-d8ac-4315-b1cf-39f200c7e137" />
 
+<img width="796" height="692" alt="Screenshot 2024-09-09 at 2 00 11 PM" src="https://github.com/user-attachments/assets/fe7f8264-685d-4323-a3c3-c7477cdba723" />
 
+<img width="429" height="58" alt="Screenshot 2024-09-09 at 2 35 27 PM" src="https://github.com/user-attachments/assets/c926b898-3eeb-44df-83f6-8d4af52bdb9b" />
 
+<img width="1171" height="501" alt="Screenshot 2024-09-09 at 2 44 35 PM" src="https://github.com/user-attachments/assets/d554a206-533e-48a9-9183-f589fbda8c75" />
 
+<img width="1121" height="629" alt="Screenshot 2024-09-09 at 2 47 37 PM" src="https://github.com/user-attachments/assets/0995d4ed-8df4-4069-8ab3-c472d0a872b2" />
 
+<img width="1121" height="629" alt="Screenshot 2024-09-09 at 2 47 37 PM" src="https://github.com/user-attachments/assets/07d1577f-9e8f-4c14-990f-4fa5d2b355fb" />
 
+<img width="1374" height="278" alt="Screenshot 2024-09-09 at 2 47 59 PM" src="https://github.com/user-attachments/assets/ef7c4495-cbb3-4a2e-84f0-a916af9b99c9" />
 
+<img width="1169" height="207" alt="Screenshot 2024-09-09 at 2 51 38 PM" src="https://github.com/user-attachments/assets/21276dfa-8fd7-4618-8dad-d38dec098b18" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<img width="1097" height="146" alt="Screenshot 2024-09-09 at 2 52 19 PM" src="https://github.com/user-attachments/assets/4be2d896-fd56-4170-9234-66bea2f6d510" />
 
 
 ### Step 8 : Build the Frontend Application
-
 Launch and configure  the Frontend EC2 Instances
 Navigate to the EC2 dashboard
 click on “launch instance”
