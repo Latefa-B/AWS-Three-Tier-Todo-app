@@ -237,111 +237,66 @@ Backend EC2 instance was previously launched, it allowed us to connect to the RD
 
 
 ### Step 8 : Build the Frontend Application
-Launch and configure  the Frontend EC2 Instances
-Navigate to the EC2 dashboard
-click on “launch instance”
-Configure the instance settings: Choose an amazon machine image AMI, Select an instance type t2.micro, in network  select the project vpc: select the public subnet
-Attach the frontend instance security group previously created to the instance 
-Attach the IAM role to the instance profile
-launch instance
-
-
-
-Deploy the Frontend EC2 Instances
-HTML/CSS/JavaScript are hosted on EC2
-Update apt-get package manager
-Install Python and dependencies
-
-
-
-
-
-
-
-Create a work directory for the frontend layer
-
-
-
-Install on the terminal AWS CLI and upload the static file from S3 bucket (header image of the web app)
-Transfer the frontend code (index html file) to the frontend EC2 instance.
-
-
-
-
-Install and create a virtual environment
-Configure inside the virtual environment flask framework and dependencies
-
-
-
-
-
-
-Install Gunicorn, Python Web Server Gateway Interface HTTP server and configure the service file
-
-
-
-
-
-
-
-test connectivity with gunicorn
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Configure web server Nginx
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Deploy and test Todo-list Web application in the browser using the Public IP address of the frontend EC2 instance
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- **Launch and configure  the Frontend EC2 Instances**
+- Navigate to the EC2 dashboard
+- click on “launch instance”
+- Configure the instance settings: Choose an amazon machine image AMI, Select an instance type t2.micro, in network  select the project vpc: select the public subnet
+- Attach the frontend instance security group previously created to the instance 
+- Attach the IAM role to the instance profile
+- launch instance
+<img width="1225" height="695" alt="Screenshot 2024-09-17 at 10 57 40 PM" src="https://github.com/user-attachments/assets/0f4a0612-be71-4961-b00b-240933c654f0" />
+
+<img width="1134" height="660" alt="Screenshot 2024-09-17 at 10 56 31 PM" src="https://github.com/user-attachments/assets/b0b37107-2d9b-4094-bbeb-e7ad678ebeab" />
+
+- **Deploy the Frontend EC2 Instances**
+- HTML/CSS/JavaScript are hosted on EC2
+- Update apt-get package manager
+- Install Python and dependencies
+<img width="996" height="631" alt="Screenshot 2024-09-10 at 12 23 17 PM" src="https://github.com/user-attachments/assets/f06b3a61-ed79-4a8c-8a26-58b29f41ff45" />
+
+<img width="1219" height="489" alt="Screenshot 2024-09-10 at 12 24 00 PM" src="https://github.com/user-attachments/assets/260cad3a-5161-478e-9663-f6f41ee49a9f" />
+
+<img width="1200" height="397" alt="Screenshot 2024-09-10 at 12 31 53 PM" src="https://github.com/user-attachments/assets/aa8fe1ba-3b2a-43e4-8858-d40c764a9528" />
+
+- Create a work directory for the frontend layer
+<img width="349" height="107" alt="Screenshot 2024-09-10 at 12 40 43 PM" src="https://github.com/user-attachments/assets/e17e29a1-9653-4f5c-bb00-e92137c78b51" />
+
+<img width="731" height="104" alt="Screenshot 2024-09-10 at 12 44 30 PM" src="https://github.com/user-attachments/assets/69b48f4e-7420-4488-b422-d15b7c275b5f" />
+
+- **Install on the terminal AWS CLI and upload the static file from S3 bucket (header image of the web app)**
+- Transfer the frontend code (index html file) to the frontend EC2 instance.
+<img width="918" height="131" alt="Screenshot 2024-09-10 at 12 46 06 PM" src="https://github.com/user-attachments/assets/0f69c6b1-8d72-43d3-8520-21e28556b14a" />
+<img width="464" height="169" alt="Screenshot 2024-09-10 at 12 46 59 PM" src="https://github.com/user-attachments/assets/cb6a29b2-435c-40fc-a6a0-fa2c2d5e5aed" />
+
+
+- **Install and create a virtual environment**
+- Configure inside the virtual environment flask framework and dependencies
+<img width="600" height="235" alt="Screenshot 2024-09-10 at 12 51 02 PM" src="https://github.com/user-attachments/assets/c6c009e0-0a7d-4b6b-88c0-e7b250617f33" />
+<img width="1151" height="480" alt="Screenshot 2024-09-10 at 12 52 43 PM" src="https://github.com/user-attachments/assets/c844f75b-bafc-4bc6-a21f-e76dd70e2916" />
+<img width="1224" height="254" alt="Screenshot 2024-09-10 at 12 52 58 PM" src="https://github.com/user-attachments/assets/716e2c52-05c3-4229-88c0-a748eefb6309" />
+<img width="1209" height="227" alt="Screenshot 2024-09-10 at 12 55 05 PM" src="https://github.com/user-attachments/assets/d0604502-ab3a-484b-9859-03dfe6b9231e" />
+
+- **Install Gunicorn, Python Web Server Gateway Interface HTTP server and configure the service file**
+<img width="741" height="206" alt="Screenshot 2024-09-10 at 12 55 21 PM" src="https://github.com/user-attachments/assets/4e6d4492-d36f-4c9a-a479-39736ce12102" />
+<img width="874" height="406" alt="Screenshot 2024-09-10 at 1 05 14 PM" src="https://github.com/user-attachments/assets/9ad49aca-3cca-4a28-8e9a-a626f04122b0" />
+<img width="1203" height="163" alt="Screenshot 2024-09-10 at 1 13 45 PM" src="https://github.com/user-attachments/assets/8f2a4488-53fa-4c39-a8d8-f70e4f253778" />
+
+- **test connectivity with gunicorn**
+<img width="725" height="711" alt="Screenshot 2024-09-10 at 1 15 05 PM" src="https://github.com/user-attachments/assets/00e93973-565d-4101-a964-96f97756e0ae" />
+<img width="596" height="715" alt="Screenshot 2024-09-10 at 1 15 15 PM" src="https://github.com/user-attachments/assets/ef4b9507-6ca9-4137-a985-2228e36b8d17" />
+
+- **Configure web server Nginx**
+<img width="1038" height="663" alt="Screenshot 2024-09-10 at 1 49 08 PM" src="https://github.com/user-attachments/assets/c34cdbec-592d-46a5-b4ac-cf07a03877bf" />
+<img width="709" height="623" alt="Screenshot 2024-09-10 at 2 08 46 PM" src="https://github.com/user-attachments/assets/f04bc0e1-81cf-4916-aef4-00a3b631fd34" />
+<img width="791" height="662" alt="Screenshot 2024-09-10 at 2 15 59 PM" src="https://github.com/user-attachments/assets/327326dc-d06b-4dd5-b6aa-5c8e450c4d8b" />
+<img width="1064" height="663" alt="Screenshot 2024-09-10 at 2 16 10 PM" src="https://github.com/user-attachments/assets/c2b03bca-54fb-4996-8867-fb673202c870" />
+<img width="808" height="443" alt="Screenshot 2024-09-10 at 2 17 49 PM" src="https://github.com/user-attachments/assets/10308b16-157f-47f6-ae95-78e9387fe16f" />
+<img width="630" height="84" alt="Screenshot 2024-09-10 at 2 18 14 PM" src="https://github.com/user-attachments/assets/bc26c39b-46aa-48bb-b5df-8ab6993b53f1" />
+<img width="795" height="495" alt="Screenshot 2024-09-10 at 2 18 56 PM" src="https://github.com/user-attachments/assets/c630eb11-310c-496e-9320-2fadc15e9c62" />
+
+- **Deploy and test Todo-list Web application in the browser using the Public IP address of the frontend EC2 instance**
+<img width="1403" height="733" alt="Screenshot 2024-09-11 at 3 40 58 PM" src="https://github.com/user-attachments/assets/2e682d66-8619-4ee9-ac8b-4bc32d1c0ed8" />
+<img width="958" height="827" alt="Screenshot 2024-09-11 at 3 41 23 PM" src="https://github.com/user-attachments/assets/aa78f29f-e70c-45f9-a7ba-7eeee4f6690e" />
 
 ### Step 9 : Configure Load Balancing & Auto Scaling for high availability 
 
