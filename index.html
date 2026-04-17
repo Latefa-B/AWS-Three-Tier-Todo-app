@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .header-image {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        .todo-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .task {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .task-pending {
+            background-color: #ffebee;
+        }
+        .task-completed {
+            background-color: #e8f5e9;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-image">
+        <img src="header_image.jpg" alt="Header Image">
+    </div>
+    <div class="todo-container">
+        <h1>To-Do List</h1>
+        <form action="/add" method="post">
+            <input type="text" name="task" placeholder="Enter a new task" required>
+            <button type="submit">Add Task</button>
+        </form>
+        {% for task in tasks %}
+            <div class="task {% if task.status == 'Completed' %}task-completed{% else %}task-pending{% endif %}">
+                {{ task.task }}
+                {% if task.status != 'Completed' %}
+                    <a href="{{ url_for('complete_task', task_id=task.id) }}">Complete</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
